@@ -1,10 +1,8 @@
 import os
-import numpy as np
-import pandas as pd
-from prophet import Prophet
 from load_data import get_conc
 from load_index import calc_index
 from preprocessing import preprocess_data
+from store_model import store_model
 
 def train_model(lat_index,lon_index):
     directory = os.getcwd()
@@ -23,24 +21,21 @@ def train_model(lat_index,lon_index):
         co_conc = preprocess_data(aqi2_conc,'aqi2')
         o3_conc = preprocess_data(aqi3_conc,'aqi3')
 
-        df = pd.DataFrame({'pm_conc' : pm_conc, 'co_conc' : co_conc,'o3_conc' : o3_conc})
-        df.to_csv(f'{folder_path}/ref.csv')
-
+        store_model(folder_path,'pm',pm_conc)
+        store_model(folder_path,'co',co_conc)
+        store_model(folder_path,'o3',o3_conc)
 
     except OSError as error:
         print(f"Error creating folder : {error}")
     
 
 
-# start_lat, start_lon = calc_index(8.0,68.0)
-# end_lat, end_lon = calc_index(38.0,98.0)
+start_lat, start_lon = calc_index(8.0,68.0)
+end_lat, end_lon = calc_index(38.0,98.0)
 
-# end_lat = end_lat + 1
-# end_lon = end_lon + 1
+end_lat = end_lat + 1
+end_lon = end_lon + 1
 
-# for lat_index in range(start_lat,end_lat):
-#     for lon_index in range(start_lon,end_lon):
-#         train_model(lat_index,lon_index)
-
-start_lat, start_lon = calc_index(-20.7832,-85.5085)
-train_model(start_lat,start_lon)
+for lat_index in range(start_lat,end_lat):
+    for lon_index in range(start_lon,end_lon):
+        train_model(lat_index,lon_index)
