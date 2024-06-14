@@ -14,7 +14,6 @@ def store_model(folder_path,data_type,conc):
 
     df = pd.DataFrame({'ds' : ds,'y' : conc})
     df['y'] = scaler.fit_transform(df[['y']])
-    print(df)
     model.fit(df)
 
     with open(f'{folder_path}/{data_type}_prophet.pkl', 'wb') as f:
