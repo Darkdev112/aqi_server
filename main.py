@@ -8,7 +8,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"Server running"}
+    return {"status" : "server running"}
 
 @app.post("/predict")
 def predict(location : str, exact_date : date):
@@ -20,11 +20,11 @@ def predict(location : str, exact_date : date):
     lat_index,lon_index = calc_index(given_lat,given_lon)
 
     if lat_index<196 or lat_index > 256 or lon_index<396 or lon_index>444:
-        return {"Not a valid location"}
+        return {"result" : None, "error" : "Not a valid location"}
     
     aqi = model_predict(periods,lat_index,lon_index)
 
-    return aqi
+    return {"result" : aqi, "error" : None}
     
 
 
