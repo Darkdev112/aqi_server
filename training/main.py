@@ -36,6 +36,9 @@ end_lat, end_lon = calc_index(38.0,98.0)
 end_lat = end_lat + 1
 end_lon = end_lon + 1
 
+print(start_lat,end_lat)
+print(start_lon,end_lon)
+
 for lat_index in range(start_lat,end_lat):
     for lon_index in range(start_lon,end_lon):
         train_model(lat_index,lon_index)
