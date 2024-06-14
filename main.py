@@ -4,7 +4,6 @@ from coordinates import get_coordinates
 from training.load_index import calc_index
 from model import model_predict
 
-
 app = FastAPI()
 
 @app.get("/")
