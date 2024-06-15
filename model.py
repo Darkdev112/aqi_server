@@ -19,7 +19,10 @@ def model_predict(periods,given_lat,given_lon):
         predicted_df['conc'] = scaler.inverse_transform(predicted_df[['conc']])
         predicted_conc = predicted_df.iloc[-1]['conc']
 
-        conc.append(predicted_conc)
+        if predicted_conc < 0:
+            conc.append(0.1)
+        else:
+            conc.append(predicted_conc)
 
     aqi = calc_aqi(conc)
     return aqi

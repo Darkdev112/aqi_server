@@ -8,7 +8,8 @@ from model import model_predict
 app = FastAPI()
 
 origins=[
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "https://aqi-client.vercel.app/"
 ]
 
 app.add_middleware(
