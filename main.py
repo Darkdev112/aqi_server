@@ -9,7 +9,7 @@ app = FastAPI()
 
 origins=[
     "http://localhost:3000",
-    "https://aqi-client.vercel.app/"
+    "https://aqi-client.vercel.app"
 ]
 
 app.add_middleware(
